@@ -1,66 +1,71 @@
 import mongoose from "mongoose";
 
-const documentSchema = new mongoose.Schema({
+const documentSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     },
     title: {
-        type: String,
-        required: [true, "Please provide a document title"],
-        trim: true
+      type: String,
+      required: [true, "Please provide a document title"],
+      trim: true
     },
     fileName: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     filePath: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     fileSize: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     extractedText: {
-        type: String,
-        default: ''
+      type: String,
+      default: ""
     },
-    chunks: [{
+
+    chunks: [
+      {
         content: {
-            type: String,
-            required: true
+          type: String,
+          required: true
         },
         pageNumber: {
-            type: Number,
-            default: 0
+          type: Number,
+          default: 0
         },
-        chunckIndex: {
-            type: Number,
-            required: true
+        chunkIndex: {   // ✅ CORRECT
+          type: Number,
+          required: true
         }
-    }],
+      }
+    ],
+
     uploadDate: {
-        type: Date,
-        default: Date.now
+      type: Date,
+      default: Date.now
     },
     lastAccessed: {
-        type: Date,
-        default: Date.now
+      type: Date,
+      default: Date.now
     },
     status: {
-        type: String,
-        enum: ['processing', 'ready', 'failed'],
-        default: 'processing'
+      type: String,
+      enum: ["processing", "ready", "failed"],
+      default: "processing"
     }
-
-},{
+  },
+  {
     timestamps: true
-});
+  }
+);
 
-documentSchema.index({ userId: 1, uploadDate: -1});
+documentSchema.index({ userId: 1, uploadDate: -1 });
 
-const Document = mongoose.model('Document', documentSchema);
-
+const Document = mongoose.model("Document", documentSchema);
 export default Document;
