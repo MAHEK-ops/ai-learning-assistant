@@ -38,7 +38,7 @@ const loginValidation = [
 
 //Public routes
 router.post('/register', registerValidation, register);
-register.post('/login', loginValidation, login);
+router.post('/login', loginValidation, login);
 
 //protected routes
 router.get('/profile', protect, getProfile);
