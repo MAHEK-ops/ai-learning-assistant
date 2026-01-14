@@ -1,4 +1,4 @@
-import Flashcard from '/models/flashcard.js';
+import Flashcard from '../models/Flashcard.js';
 
 // @desc Get all flashcards for a document
 // @route Get /api/flashcards/:documentId
