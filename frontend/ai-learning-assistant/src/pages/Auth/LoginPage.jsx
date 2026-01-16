@@ -30,7 +30,8 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-500">
       <div className='absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] opacity-30' />
@@ -115,7 +116,7 @@ const LoginPage = () => {
                   </>
                 )}
               </span>
-              <div className='absolute inset-0 bg-linear-to-r from-white/0 vis-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duartion-700' />
+              <div className='absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700' />
             </button>
           </div>
 
