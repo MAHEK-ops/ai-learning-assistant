@@ -10,9 +10,9 @@ export const useAuth = () => {
     return context;
 };
 
-export const AuthProvider = ({Children}) => {
+export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null);
-    const [loading,setLoading]=useState(true),
+    const [loading,setLoading]=useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -55,7 +55,7 @@ export const AuthProvider = ({Children}) => {
     };
 
     const updateUser = (updateUserData) => {
-        const newUserData = {...user, ...updatedUserData};
+        const newUserData = {...user, ...updateUserData};
         localStorage.setItem('user', JSON.stringify(newUserData));
         setUser(newUserData);
     };
@@ -70,5 +70,5 @@ export const AuthProvider = ({Children}) => {
         checkAuthStatus
     };
     
-    return <AuthContext.Provider value={value}>{Children}</AuthContext.Provider>
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 };
