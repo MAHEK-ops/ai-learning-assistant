@@ -43,7 +43,7 @@ export const API_PATHS = {
     },
 
     PROGRESS: {
-        GET_DASHBOARD: "/api/progress/dashbaord",
+        GET_DASHBOARD: "/api/progress/dashboard",
     },
 
 };
