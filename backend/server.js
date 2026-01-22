@@ -38,6 +38,13 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+// Test route (for Render / deployment check)
+app.get('/', (req, res) => {
+  res.send('API running successfully');
+});
+
+
 // Static folder for uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

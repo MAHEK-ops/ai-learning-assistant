@@ -6,7 +6,7 @@ import { chunkText } from '../utils/textChunker.js';
 import fs from 'fs/promises';
 import mongoose from "mongoose";
 
-// @desc Ipload pdf document
+// @desc upload pdf document
 export const uploadDocument = async (req, res, next) => {
     try {
         if (!req.file) {
