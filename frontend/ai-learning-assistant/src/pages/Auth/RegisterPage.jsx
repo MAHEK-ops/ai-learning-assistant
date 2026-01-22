@@ -70,7 +70,7 @@ const RegisterPage = () => {
                   onFocus={() => setFocusedField('username')}
                   onBlur={() => setFocusedField(null)}
                   className='w-full h-12 pl-12 pr-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10'
-                  placeholder='tourusername'
+                  placeholder='username'
                 />
               </div>
             </div>
