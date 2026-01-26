@@ -9,6 +9,7 @@ import Tabs from '../../components/common/Tabs';
 import ChatInterface from '../../components/chat/ChatInterface';
 import AIActions from '../../components/ai/AIActions';
 import FlashcardManager from '../../components/flashcards/FlashcardManager';
+import QuizManager from '../../components/quizzes/QuizManager';
 
 const DocumentDetailPage = () => {
   const { id } = useParams();
@@ -40,7 +41,7 @@ const DocumentDetailPage = () => {
       return filePath;
     };
 
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const baseUrl = import.meta.env.VITE_API_URL;
     return `${baseUrl}${filePath.startsWith('/') ? '' : '/'}${filePath}`;
   };
 
@@ -97,7 +98,7 @@ const DocumentDetailPage = () => {
   };
 
   const renderQuizzesTab = () => {
-    return "renderQuizzesTab"
+    return <QuizManager documentId={id} />
   };
 
 
