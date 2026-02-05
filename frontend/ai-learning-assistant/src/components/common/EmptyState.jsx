@@ -1,7 +1,7 @@
 import React from 'react';
-import {FileText,Plus} from 'lucide-react';
+import { FileText, Plus } from 'lucide-react';
 
-const EmptyState = ({onActionClick, title, description, buttonText}) => {
+const EmptyState = ({ onActionClick, title, description, buttonText }) => {
   return (
     <div className='flex flex-col items-center justify-center py-16 px-6 text-center bg-linear-to-br from-slate-50/50 to-white border-2 border-dashed border-slate-200 rounded-3xl'>
       <div className='inline-flex items-center jsutif-center w-16 h-16 rounded-2xl bg-linear-to-br from-slate-100 to-slate-200/50 mb-6'>
@@ -25,4 +25,4 @@ const EmptyState = ({onActionClick, title, description, buttonText}) => {
   )
 }
 
-export default EmptyState
+export default EmptyState;

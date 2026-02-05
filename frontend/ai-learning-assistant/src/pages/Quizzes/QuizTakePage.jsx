@@ -51,17 +51,33 @@ const QuizTakePage = () => {
   };
 
   const handleSubmitQuiz = async () => {
+    if (Object.keys(selectedAnswers).length === 0) {
+      toast.error("Please answer at least one question");
+      return;
+    }
     setSubmitting(true);
     try {
-      const formattedAnswers = Object.keys(selectedAnswers).map(questionId => {
-        const question = quiz.questions.find(q => q._id === questionId);
-        const questionIndex = quiz.questions.findIndex(q => q._id === questionId);
-        const optionIndex = selectedAnswers[questionId];
-        const selectedAnswer = question.options[optionIndex];
-        return { questionIndex, selectedAnswer};
-      });
+      // const formattedAnswers = Object.keys(selectedAnswers).map(questionId => {
+      //   const question = quiz.questions.find(q => q._id === questionId);
+      //   const questionIndex = quiz.questions.findIndex(q => q._id === questionId);
+      //   const optionIndex = selectedAnswers[questionId];
+      //   const selectedAnswer = question.options[optionIndex];
+      //   return { questionIndex, selectedAnswer };
+      // });
+      const formattedAnswers = Object.entries(selectedAnswers).map(
+        ([questionId, optionIndex]) => {
+          const questionIndex = quiz.questions.findIndex(
+            q => q._id === questionId
+          );
 
-      await quizService.submitQuiz(quizId,formattedAnswers);
+          return {
+            questionIndex,
+            selectedAnswer: quiz.questions[questionIndex].options[optionIndex]
+          };
+        }
+      );
+
+      await quizService.submitQuiz(quizId, formattedAnswers);
       toast.success('Quiz submitted submitted!');
       navigate(`/quizzes/${quizId}/results`);
     } catch (error) {
@@ -137,8 +153,8 @@ const QuizTakePage = () => {
               <label
                 key={index}
                 className={`group relative flex items-center p-3 border-2 rounded-xl cursor-pointer transition-all duration-200 ${isSelected
-                    ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-500/10'
-                    : 'border-slate-200 bg-slate-50/50 hover:border-slate-300 hover:bg-white hover:shadow-md'
+                  ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-500/10'
+                  : 'border-slate-200 bg-slate-50/50 hover:border-slate-300 hover:bg-white hover:shadow-md'
                   }`}
               >
                 <input
@@ -152,8 +168,8 @@ const QuizTakePage = () => {
 
                 {/* Custom Radio Button */}
                 <div className={`shrink-0 w-5 h-5 rounded-full border-2 transition-all duration-200 ${isSelected
-                    ? 'border-emerald-500 bg-emerald-500 '
-                    : 'border-slate-300 bg-white group-hover:border-emerald-400'
+                  ? 'border-emerald-500 bg-emerald-500 '
+                  : 'border-slate-300 bg-white group-hover:border-emerald-400'
                   }`}>
                   {isSelected && (
                     <div className='w-full h-full flex items-center justify-center'>
@@ -226,25 +242,24 @@ const QuizTakePage = () => {
 
       {/* Question Navigation Dots */}
       <div className='mt-0 flex items-center justify-center gap-2 flex-wrap'>
-        {quiz.questions.map((_,index) => {
+        {quiz.questions.map((_, index) => {
           const isAnsweredQuestion = selectedAnswers.hasOwnProperty(quiz.questions[index]._id);
-          const isCurrent = index===currentQuestionIndex;
+          const isCurrent = index === currentQuestionIndex;
 
           return (
             <button
-                key={index}
-                onClick={() => setCurrentQuestionIndex(index)}
-                disabled={submitting}
-                className={`w-8 h-8 rounded-lg font-semibold text-xs transition-all duration-200 ${
-                  isCurrent
-                    ? 'bg-linear-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 scale-110'
-                    : isAnsweredQuestion
-                    ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              key={index}
+              onClick={() => setCurrentQuestionIndex(index)}
+              disabled={submitting}
+              className={`w-8 h-8 rounded-lg font-semibold text-xs transition-all duration-200 ${isCurrent
+                ? 'bg-linear-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 scale-110'
+                : isAnsweredQuestion
+                  ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {index+1}
-              </button>
+            >
+              {index + 1}
+            </button>
           )
         })}
       </div>

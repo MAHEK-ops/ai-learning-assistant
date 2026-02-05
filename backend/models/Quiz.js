@@ -40,7 +40,7 @@ const quizSchema = new mongoose.Schema({
             default: 'medium'
         }
     }],
-    userAnswer: [{
+    userAnswers: [{
         questionIndex: {
             type: Number,
             required: true
@@ -64,7 +64,7 @@ const quizSchema = new mongoose.Schema({
     },
     totalQuestions: {
         type: Number,
-        default: true
+        required: true
     },
     completedAt: {
         type: Date,

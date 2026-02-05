@@ -160,9 +160,9 @@ export const getQuizResults = async (req, res, next) => {
             });
         }
 
-        // 🔑 FIX HERE
+        
         const detailedResults = quiz.questions.map((question, index) => {
-            const userAnswer = quiz.userAnswer?.find(
+            const userAnswer = quiz.userAnswers?.find(
                 a => a.questionIndex === index
             );
 
