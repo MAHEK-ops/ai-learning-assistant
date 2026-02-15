@@ -50,8 +50,14 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Health check route (for uptime monitoring)
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Server is running'
+  });
+});
 
-// Test route (for Render / deployment check)
 app.get('/', (req, res) => {
   res.send('API running successfully');
 });
