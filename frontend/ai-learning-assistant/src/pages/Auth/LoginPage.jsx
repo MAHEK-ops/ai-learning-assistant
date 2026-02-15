@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import authService from '../../services/authService.js';
@@ -31,6 +31,26 @@ const LoginPage = () => {
       setLoading(false);
     }
   };
+
+  const handleDemoLogin = async () => {
+    setError('');
+    setLoading(true);
+
+    try {
+      const demoEmail = "demo@ailearning.com";
+      const demoPassword = "Demo@123@456@789@1";
+
+      const { token, user } = await authService.login(demoEmail, demoPassword);
+      login(user, token);
+      toast.success("Logged in as Demo User");
+      navigate('/dashboard');
+    } catch (err) {
+      toast.error("Demo login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-500">
@@ -118,6 +138,18 @@ const LoginPage = () => {
               </span>
               <div className='absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700' />
             </button>
+
+            <p className="text-center text-sm text-slate-500 mt-4">
+              Want to explore first?{" "}
+              <button
+                type="button"
+                onClick={handleDemoLogin}
+                className="font-semibold text-emerald-600 hover:text-emerald-700 hover:underline transition-colors duration-200"
+              >
+                Login as Demo User
+              </button>
+            </p>
+
           </div>
 
           {/* {Footer} */}
