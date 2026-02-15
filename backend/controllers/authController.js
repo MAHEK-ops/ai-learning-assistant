@@ -62,7 +62,7 @@ export const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         //validate input
-        if (!email || !password){
+        if (!email || !password) {
             return res.status(400).json({
                 success: false,
                 error: "Please provide email and password",
@@ -71,9 +71,9 @@ export const login = async (req, res, next) => {
         };
 
         // check for user (include password for comparison)
-        const user = await User.findOne({email}).select("+password");
+        const user = await User.findOne({ email }).select("+password");
 
-        if (!user){
+        if (!user) {
             return res.status(401).json({
                 success: false,
                 error: "Invalid ceredentials",
@@ -84,7 +84,7 @@ export const login = async (req, res, next) => {
         // check password
         const isMatch = await user.matchPassword(password);
 
-        if(!isMatch){
+        if (!isMatch) {
             return res.status(401).json({
                 success: false,
                 error: "Invalid ceredentials",
@@ -140,7 +140,7 @@ export const getProfile = async (req, res, next) => {
 // @access Private
 export const updateProfile = async (req, res, next) => {
     try {
-        const { username, email, profileImage} = req.body;
+        const { username, email, profileImage } = req.body;
 
         const user = await User.findById(req.user._id);
         if (username) user.username = username;
@@ -169,8 +169,16 @@ export const updateProfile = async (req, res, next) => {
 // @access Private
 export const changePassword = async (req, res, next) => {
     try {
+        if (req.user.email === "demo@ailearning.com") {
+            return res.status(403).json({
+                success: false,
+                error: "Demo users cannot change password",
+                statusCode: 403
+            });
+        }
+
         const { currentPassword, newPassword } = req.body;
-        if (!currentPassword || !newPassword){
+        if (!currentPassword || !newPassword) {
             return res.status(400).json({
                 success: false,
                 error: "Please provide current and new password",
@@ -179,9 +187,9 @@ export const changePassword = async (req, res, next) => {
         }
 
         const user = await User.findById(req.user._id).select("+password");
-        
+
         const isMatch = await user.matchPassword(currentPassword)
-        if (!isMatch){
+        if (!isMatch) {
             return res.status(401).json({
                 success: false,
                 error: "Current password is incorrect",
@@ -190,7 +198,7 @@ export const changePassword = async (req, res, next) => {
         };
 
         //update password
-        user.password=newPassword;
+        user.password = newPassword;
         await user.save();
         res.status(200).json({
             success: true,

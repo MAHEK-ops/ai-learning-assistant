@@ -196,6 +196,13 @@ export const getDocument = async (req, res, next) => {
 // @access Private
 export const deleteDocument = async (req, res, next) => {
     try {
+        if (req.user.email === "demo@ailearning.com") {
+            return res.status(403).json({
+                success: false,
+                error: "This action is disabled in demo mode",
+                statusCode: 403
+            });
+        }
         const document = await Document.findOne({
             _id: req.params.id,
             userId: req.user._id
