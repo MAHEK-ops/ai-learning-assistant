@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Upload, Trash2, FileText, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
 import documentService from '../../services/documentService';
 import Spinner from '../../components/common/Spinner';
@@ -22,6 +23,8 @@ const DocumentListPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
+
+  const { user } = useAuth();
 
   const fetchDocuments = async () => {
     try {
@@ -80,6 +83,12 @@ const DocumentListPage = () => {
 
   const handleConfirmDelete = async () => {
     if (!selectedDoc) return;
+    if (user?.email === "demo@ailearning.com") {
+      toast.error("This action is disabled in Demo Mode.");
+      setIsDeleteModalOpen(false);
+      setSelectedDoc(null);
+      return;
+    }
     setDeleting(true);
 
     try {
