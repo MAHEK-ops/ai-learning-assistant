@@ -94,6 +94,11 @@ export const submitQuiz = async (req, res, next) => {
             const { questionIndex, selectedAnswer } = answer;
             if (questionIndex < quiz.questions.length) {
                 const question = quiz.questions[questionIndex];
+
+                console.log("Selected:", selectedAnswer);
+                console.log("Correct:", question.correctAnswer);
+                console.log("Options:", question.options);
+
                 const isCorrect = selectedAnswer === question.correctAnswer;
 
                 if (isCorrect) correctCount++;
@@ -160,7 +165,7 @@ export const getQuizResults = async (req, res, next) => {
             });
         }
 
-        
+
         const detailedResults = quiz.questions.map((question, index) => {
             const userAnswer = quiz.userAnswers?.find(
                 a => a.questionIndex === index

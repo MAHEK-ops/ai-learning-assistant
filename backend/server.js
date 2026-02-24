@@ -25,12 +25,12 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware to handle CORS
 const allowedOrigins = [
   "http://localhost:5173",
   "https://ai-learning-assistant-frontend-qjc2.onrender.com" // frontend link
 ];
 
+// Middleware to handle CORS
 app.use(
   cors({
     origin: function (origin, callback) {

@@ -15,8 +15,7 @@ export const register = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
 
-        // check if user exists
-        const userExists = await User.findOne({ $or: [{ email }] });
+        const userExists = await User.findOne({ $or: [{ email },{username}] });
 
         if (userExists) {
             return res.status(400).json({
@@ -33,7 +32,7 @@ export const register = async (req, res, next) => {
             password
         });
 
-        //Generate roken 
+        //Generate token 
         const token = generateToken(user._id);
 
         res.status(201).json({

@@ -12,7 +12,7 @@ if (!process.env.GEMINI_API_KEY) {
 
 /**
  * Generate flashcards from text
- * @param {string} text - DOcument text
+ * @param {string} text - Document text
  * @param {number} count - Number of flashcards to generate
  * @returns {Promise<Array<{question: string, answer: string, difficulty: string}>>}
  */

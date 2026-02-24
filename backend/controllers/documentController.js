@@ -170,7 +170,7 @@ export const getDocument = async (req, res, next) => {
             userId: req.user._id
         });
 
-        // ✅ Update lastAccessed WITHOUT triggering validation
+        // Update lastAccessed WITHOUT triggering validation
         await Document.updateOne(
             { _id: document._id },
             { $set: { lastAccessed: Date.now() } }
