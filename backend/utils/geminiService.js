@@ -118,7 +118,10 @@ export const generateQuiz = async (text, numQuestions = 5) => {
         } else if (/^\d{2}:/.test(trimmed)) {
           options.push(trimmed.substring(3).trim());
         } else if (trimmed.startsWith('C: ')) {
-          correctAnswer = trimmed.substring(2).trim();
+          const correctLine = trimmed.substring(2).trim();
+
+          // Remove leading number like "03: "
+          correctAnswer = correctLine.replace(/^\d{2}:\s*/, '');
         } else if (trimmed.startsWith('E:')) {
           explanation = trimmed.substring(2).trim();
         } else if (trimmed.startsWith('D: ')) {
