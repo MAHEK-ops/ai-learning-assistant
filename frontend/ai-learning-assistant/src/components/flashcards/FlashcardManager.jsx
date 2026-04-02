@@ -147,6 +147,7 @@ const FlashcardManager = ({ documentId }) => {
                 <div className='flex flex-col items-center space-y-8'>
                     <div className='w-full max-w-2xl'>
                         <Flashcard
+                            key={currentCard._id}
                             flashcard={currentCard}
                             onToggleStar={handleToggleStar}
                         />
